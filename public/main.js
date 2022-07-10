@@ -16,6 +16,18 @@ const ranks = [
 ]
 let deck = []
 
+const player = {
+  hand: [],
+  wins: 0,
+  losses: 0
+}
+
+const dealer = {
+  hand: [],
+  wins: 0,
+  losses: 0
+}
+
 // let deckOfCardsURL = 'https://www.deckofcardsapi.com/api/deck/new/'
 
 // let deckOfCards = fetch(deckOfCardsURL)
@@ -74,7 +86,71 @@ const shuffleDeck = () => {
   console.log(deck)
 }
 
+const dealCardToPlayer = () => {
+  // remove a card from the deck
+  let nextCard = deck.shift()
+  // put that card in the player's hand
+  player.hand.push(nextCard)
+}
 
+const displayPlayerHand = () => {
+  
+  // remove the existing cards from ul
+  document.querySelector('.playerHand').textContent = ''
+
+  // add the list of the two card images to the dom
+
+  const lis = player.hand.map((card) => { 
+    const img = document.createElement('img')
+    img.src = `images/${card.suit}_${card.rank}.png`
+  
+    const li = document.createElement('li')
+    li.appendChild(img)
+    return li
+  })
+
+  lis.forEach(li => {
+    document.querySelector('.playerHand').appendChild(li)
+  })
+}
+
+const displayPlayerTotal = () => {
+  const playerScore = player.hand.reduce((total, card) =>{
+    total += card.value
+    return total
+  }, 0)
+  document.querySelector('.playerTotalScore').textContent = playerScore
+}
+
+const displayDealerHand = () => {
+  // 
+}
+
+const dealCardToDealer = () => {
+console.log(deck)
+let dealerNextCard = deck.shift()
+  dealer.hand.push(dealerNextCard)
+}
+
+const startGame = () => {
+  // deal 2 cards to player and update the deck
+  dealCardToPlayer()
+  dealCardToPlayer()
+  console.log(player)
+  
+  console.log(deck)
+  // show player their cards
+  // display cards as list itemes 
+  displayPlayerHand()
+  
+  // deal 2 cards to the dealer
+  dealCardToDealer()
+  dealCardToDealer()
+  console.log(dealer)
+  console.log(deck)
+  displayPlayerTotal()
+  // show only 1 dealer card
+}
 
 const dealCard = () => {
   //remove the 1st card from our deck
@@ -96,8 +172,10 @@ const dealCard = () => {
 const main = () => {
   createDeck()
   shuffleDeck()
+  startGame()
 }
 
 
 document.addEventListener('DOMContentLoaded', main)
-document.querySelector('.dealCard').addEventListener('click', dealCard)
+document.querySelector('.dealCard').addEventListener('click', dealCardToPlayer)
+document.querySelector('.startGame').addEventListener('click', startGame)
