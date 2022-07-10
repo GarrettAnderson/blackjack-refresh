@@ -142,13 +142,13 @@ const startGame = () => {
   // show player their cards
   // display cards as list itemes 
   displayPlayerHand()
-  
+  displayPlayerTotal()
   // deal 2 cards to the dealer
   dealCardToDealer()
   dealCardToDealer()
   console.log(dealer)
   console.log(deck)
-  displayPlayerTotal()
+
   // show only 1 dealer card
 }
 
