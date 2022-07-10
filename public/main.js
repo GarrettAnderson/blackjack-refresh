@@ -115,15 +115,35 @@ const displayPlayerHand = () => {
 }
 
 const displayPlayerTotal = () => {
-  const playerScore = player.hand.reduce((total, card) =>{
-    total += card.value
-    return total
-  }, 0)
+  // const playerScore = player.hand.reduce((total, card) =>{
+  //   total += card.value
+  //   return total
+  // }, 0)
+
+
+  let playerScore = 0
+  player.hand.forEach(card => {
+    playerScore += card.value
+  })
+
   document.querySelector('.playerTotalScore').textContent = playerScore
 }
 
 const displayDealerHand = () => {
-  // 
+  //  show the first card in the hand
+  //  create an li element for each card
+  //  add that li to the ul for dealer hand
+  //  
+  console.log(dealer.hand[0])
+  const cardToReveal = dealer.hand[0]
+  const li = document.createElement('li')
+  const img = document.createElement('img')
+  img.src = `images/${cardToReveal.imageUrl}`
+  li.appendChild(img)
+   
+  document.querySelector('.dealerHand').appendChild(li)
+  
+
 }
 
 const dealCardToDealer = () => {
@@ -150,6 +170,7 @@ const startGame = () => {
   console.log(deck)
 
   // show only 1 dealer card
+  displayDealerHand()
 }
 
 const dealCard = () => {
